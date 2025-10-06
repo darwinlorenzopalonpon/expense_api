@@ -1,24 +1,37 @@
-# README
+# Expense Management API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Ruby on Rails API-only application for managing employee expenses with role-based approval workflow.
 
-Things you may want to cover:
+## System Requirements
 
-* Ruby version
+- **Ruby**: 3.4.5
+- **Rails**: 8.0.3
+- **PostgreSQL**: 16.10
 
-* System dependencies
+## Setup Instructions
 
-* Configuration
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/expense_api.git
+cd expense_api
+```
 
-* Database creation
+### 2. Install Dependencies
+```bash
+# Install Ruby gems
+bundle install
+```
 
-* Database initialization
+### 3. Database Setup
+```bash
+# Create and setup the database
+rails db:create
+rails db:migrate
+rails db:seed
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### 4. Start the Application
+```bash
+# Start Rails API server
+rails server
+```
