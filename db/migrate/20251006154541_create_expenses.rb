@@ -1,6 +1,6 @@
 class CreateExpenses < ActiveRecord::Migration[8.0]
   def up
-    create_enum :expense_state, [:drafted, :submitted, :approved, :rejected]
+    create_enum :expense_state, [ :drafted, :submitted, :approved, :rejected ]
     create_table :expenses do |t|
       t.decimal :amount, null: false
       t.string :description, null: false

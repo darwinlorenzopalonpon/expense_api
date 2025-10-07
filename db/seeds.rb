@@ -12,7 +12,7 @@ users = [
   { name: "Employee 1", email: "employee1@example.com", role: "employee" },
   { name: "Employee 2", email: "employee2@example.com", role: "employee" },
   { name: "Reviewer 1", email: "reviewer1@example.com", role: "reviewer" },
-  { name: "Reviewer 2", email: "reviewer2@example.com", role: "reviewer" },
+  { name: "Reviewer 2", email: "reviewer2@example.com", role: "reviewer" }
 ]
 
 users.each do |user_data|
@@ -33,7 +33,7 @@ expenses = [
   { amount: 700, description: "Expense 7", employee_id: User.employee.first.id, state: "rejected",
     reviewer_id: User.reviewer.first.id, reviewed_at: Time.current },
   { amount: 800, description: "Expense 8", employee_id: User.employee.last.id, state: "rejected",
-    reviewer_id: User.reviewer.last.id, reviewed_at: Time.current },
+    reviewer_id: User.reviewer.last.id, reviewed_at: Time.current }
 ]
 
 expenses.each do |expense_data|

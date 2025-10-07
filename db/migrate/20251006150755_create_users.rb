@@ -1,6 +1,6 @@
 class CreateUsers < ActiveRecord::Migration[8.0]
   def up
-    create_enum :user_role, [:employee, :reviewer]
+    create_enum :user_role, [ :employee, :reviewer ]
 
     create_table :users do |t|
       t.string :name
