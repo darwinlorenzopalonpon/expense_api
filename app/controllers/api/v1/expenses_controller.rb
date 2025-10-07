@@ -1,6 +1,5 @@
 class Api::V1::ExpensesController < ApplicationController
   before_action :set_current_user
-  before_action :set_expense, only: [ :show, :submit, :approve, :reject ]
 
   def index
     @expenses = @current_user.expenses.all
@@ -12,11 +11,16 @@ class Api::V1::ExpensesController < ApplicationController
   end
 
   def update
-    # TODO: Implement update
+    result = ExpenseUpdateService.new(@current_user, update_params).call
+    if result[:success]
+      render json: result[:expense]
+    else
+      render json: { error: result[:error] }, status: :unprocessable_entity
+    end
   end
 
   def create
-    @expense = @current_user.expenses.create!(expense_params)
+    @expense = @current_user.expenses.create!(create_params)
     # TODO: handle submit if params[:submit] is true
   end
 
@@ -34,7 +38,11 @@ class Api::V1::ExpensesController < ApplicationController
 
   private
 
-  def set_expense
-    @expense = Expense.find(params[:id])
+  def update_params
+    params.require(:expense).permit(:id, :amount, :description)
+  end
+
+  def create_params
+    params.require(:expense).permit(:amount, :description)
   end
 end
