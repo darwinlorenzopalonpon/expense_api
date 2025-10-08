@@ -11,6 +11,8 @@ class Expense < ApplicationRecord
   validates :submitted_at, presence: true, if: :submitted?
   validates :reviewed_at, presence: true, if: :reviewed?
 
+  scope :for_reviewer, -> { where(state: %w[submitted approved rejected]) }
+
   aasm column: :state do
     state :drafted, initial: true
     state :submitted

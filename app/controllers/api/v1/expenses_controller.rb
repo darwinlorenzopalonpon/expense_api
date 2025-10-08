@@ -2,9 +2,11 @@ class Api::V1::ExpensesController < ApplicationController
   before_action :set_current_user
 
   def index
-    @expenses = Expense.includes(:employee, :reviewer).all
-    render json: @expenses, each_serializer: Api::V1::ExpenseSerializer
-    end
+    # @expenses = Expense.includes(:employee, :reviewer).all
+    # render json: @expenses, each_serializer: Api::V1::ExpenseSerializer
+    result = ExpenseIndexService.new(@current_user).call
+    render_service_response(result, serializer: Api::V1::ExpenseSerializer)
+  end
 
   def show
     @expense = Expense.find_by(id: params[:id])
