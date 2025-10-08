@@ -2,12 +2,12 @@ class Api::V1::ExpensesController < ApplicationController
   before_action :set_current_user
 
   def index
-    @expenses = @current_user.expenses
+    @expenses = Expense.all
     render json: @expenses
   end
 
   def show
-    @expense = @current_user.expenses.find_by(id: params[:id])
+    @expense = Expense.find_by(id: params[:id])
     if @expense.nil?
       return render json: { error: "Expense not found" }, status: :not_found
     end
