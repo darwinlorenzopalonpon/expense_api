@@ -30,7 +30,8 @@ class Api::V1::ExpensesController < ApplicationController
   end
 
   def approve
-    # TODO: Implement approve
+    result = ExpenseApproveService.new(@current_user, {id: params[:id]}).call
+    render_service_response(result)
   end
 
   def reject

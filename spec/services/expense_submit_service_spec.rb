@@ -9,6 +9,8 @@ RSpec.describe ExpenseSubmitService do
       it 'submits the expense' do
         result = ExpenseSubmitService.new(user, {id: expense.id}).call
         expect(result[:success]).to eq(true)
+        expect(expense.reload.state).to eq("submitted")
+        expect(expense.reload.submitted_at).to be_present
       end
     end
 
