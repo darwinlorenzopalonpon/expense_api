@@ -2,26 +2,26 @@ class Api::V1::ExpensesController < ApplicationController
   before_action :set_current_user
 
   def index
-    @expenses = @current_user.expenses.all
+    @expenses = @current_user.expenses
     render json: @expenses
   end
 
   def show
+    @expense = @current_user.expenses.find_by(id: params[:id])
+    if @expense.nil?
+      return render json: { error: "Expense not found" }, status: :not_found
+    end
     render json: @expense
   end
 
   def update
     result = ExpenseUpdateService.new(@current_user, update_params).call
-    if result[:success]
-      render json: result[:expense]
-    else
-      render json: { error: result[:error] }, status: :unprocessable_entity
-    end
+    render_service_response(result)
   end
 
   def create
-    @expense = @current_user.expenses.create!(create_params)
-    # TODO: handle submit if params[:submit] is true
+    result = ExpenseCreateService.new(@current_user, create_params).call
+    render_service_response(result)
   end
 
   def submit
@@ -43,6 +43,6 @@ class Api::V1::ExpensesController < ApplicationController
   end
 
   def create_params
-    params.require(:expense).permit(:amount, :description)
+    params.require(:expense).permit(:amount, :description, :submit)
   end
 end
