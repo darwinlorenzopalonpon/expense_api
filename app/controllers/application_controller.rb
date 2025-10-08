@@ -8,8 +8,11 @@ class ApplicationController < ActionController::API
     render json: { error: "Unauthorized" }, status: :unauthorized unless @current_user
   end
 
-  def render_service_response(result)
-    status = result[:success] ? :ok : result[:type]
-    render json: result, status: status
+  def render_service_response(result, serializer: nil)
+    if result[:success]
+      render json: result[:data], serializer: serializer, status: :ok
+    else
+      render json: { error: result[:message] }, status: result[:type]
+    end
   end
 end
