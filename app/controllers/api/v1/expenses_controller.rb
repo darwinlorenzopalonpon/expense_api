@@ -14,6 +14,11 @@ class Api::V1::ExpensesController < ApplicationController
     render json: @expense
   end
 
+  def destroy
+    result = ExpenseDeleteService.new(@current_user, { id: params[:id] }).call
+    render_service_response(result)
+  end
+
   def update
     result = ExpenseUpdateService.new(@current_user, update_params).call
     render_service_response(result)
