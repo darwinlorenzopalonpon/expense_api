@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_06_154541) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_08_035603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,7 +20,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_06_154541) do
   create_enum "user_role", ["employee", "reviewer"]
 
   create_table "expenses", force: :cascade do |t|
-    t.decimal "amount", null: false
+    t.integer "amount", null: false
     t.string "description", null: false
     t.bigint "employee_id", null: false
     t.bigint "reviewer_id"
