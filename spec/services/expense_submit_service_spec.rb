@@ -7,7 +7,7 @@ RSpec.describe ExpenseSubmitService do
       let(:expense) { create(:expense, employee: user) }
 
       it 'submits the expense' do
-        result = ExpenseSubmitService.new(user, {id: expense.id}).call
+        result = ExpenseSubmitService.new(user, { id: expense.id }).call
         expect(result[:success]).to eq(true)
         expect(expense.reload.state).to eq("submitted")
         expect(expense.reload.submitted_at).to be_present
@@ -19,7 +19,7 @@ RSpec.describe ExpenseSubmitService do
       let(:expense) { create(:expense, :submitted, employee: user) }
 
       it 'returns an error' do
-        result = ExpenseSubmitService.new(user, {id: expense.id}).call
+        result = ExpenseSubmitService.new(user, { id: expense.id }).call
         expect(result[:success]).to eq(false)
         expect(result[:type]).to eq(:unprocessable_entity)
       end
@@ -30,7 +30,7 @@ RSpec.describe ExpenseSubmitService do
       let(:expense) { create(:expense) }
 
       it 'returns an error' do
-        result = ExpenseSubmitService.new(user, {id: expense.id}).call
+        result = ExpenseSubmitService.new(user, { id: expense.id }).call
         expect(result[:success]).to eq(false)
         expect(result[:type]).to eq(:unprocessable_entity)
       end
@@ -41,7 +41,7 @@ RSpec.describe ExpenseSubmitService do
       let(:expense) { nil }
 
       it 'returns an error' do
-        result = ExpenseSubmitService.new(user, {id: expense&.id}).call
+        result = ExpenseSubmitService.new(user, { id: expense&.id }).call
         expect(result[:success]).to eq(false)
         expect(result[:type]).to eq(:not_found)
       end

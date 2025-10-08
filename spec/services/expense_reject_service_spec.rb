@@ -8,7 +8,7 @@ RSpec.describe ExpenseRejectService do
   describe '#call' do
     context 'when user is a reviewer' do
       it 'rejects the expense' do
-        result = ExpenseRejectService.new(reviewer, {id: expense.id}).call
+        result = ExpenseRejectService.new(reviewer, { id: expense.id }).call
         expect(result[:success]).to eq(true)
         expect(expense.reload.state).to eq("rejected")
         expect(expense.reload.reviewed_at).to be_present
@@ -17,7 +17,7 @@ RSpec.describe ExpenseRejectService do
 
     context 'when user is not a reviewer' do
       it 'returns an error' do
-        result = ExpenseRejectService.new(employee, {id: expense.id}).call
+        result = ExpenseRejectService.new(employee, { id: expense.id }).call
         expect(result[:success]).to eq(false)
         expect(result[:type]).to eq(:unprocessable_entity)
       end
@@ -26,7 +26,7 @@ RSpec.describe ExpenseRejectService do
     context 'when expense is not in a submitted state' do
       let(:expense) { create(:expense, :drafted) }
       it 'returns an error' do
-        result = ExpenseRejectService.new(reviewer, {id: expense.id}).call
+        result = ExpenseRejectService.new(reviewer, { id: expense.id }).call
         expect(result[:success]).to eq(false)
         expect(result[:type]).to eq(:unprocessable_entity)
       end

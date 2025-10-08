@@ -25,17 +25,17 @@ class Api::V1::ExpensesController < ApplicationController
   end
 
   def submit
-    result = ExpenseSubmitService.new(@current_user, {id: params[:id]}).call
+    result = ExpenseSubmitService.new(@current_user, { id: params[:id] }).call
     render_service_response(result)
   end
 
   def approve
-    result = ExpenseApproveService.new(@current_user, {id: params[:id]}).call
+    result = ExpenseApproveService.new(@current_user, { id: params[:id] }).call
     render_service_response(result)
   end
 
   def reject
-    result = ExpenseRejectService.new(@current_user, {id: params[:id]}).call
+    result = ExpenseRejectService.new(@current_user, { id: params[:id] }).call
     render_service_response(result)
   end
 
