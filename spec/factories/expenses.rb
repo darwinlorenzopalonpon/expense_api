@@ -4,5 +4,10 @@ FactoryBot.define do
     description { Faker::Lorem.sentence }
     employee { association :user, :employee }
     state { "drafted" }
+
+    trait :submitted do
+      state { "submitted" }
+      submitted_at { Time.current }
+    end
   end
 end

@@ -58,5 +58,19 @@ RSpec.describe ExpenseUpdateService do
         expect(result[:type]).to eq(:not_found)
       end
     end
+
+    context 'when the expense is not in a draft state' do
+      let(:user) { create(:user, :employee) }
+      let(:expense) { create(:expense, :submitted) }
+      let(:amount) { 123 }
+      let(:description) { "Updated description" }
+      let(:params) { { id: expense.id, amount: amount, description: description } }
+
+      it 'returns an error' do
+        result = ExpenseUpdateService.new(user, params).call
+        expect(result[:success]).to eq(false)
+        expect(result[:type]).to eq(:unprocessable_entity)
+      end
+    end
   end
 end

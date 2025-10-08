@@ -39,7 +39,7 @@ class Api::V1::ExpensesController < ApplicationController
   private
 
   def update_params
-    params.require(:expense).permit(:id, :amount, :description)
+    params.require(:expense).permit(:amount, :description).merge(id: params[:id])
   end
 
   def create_params

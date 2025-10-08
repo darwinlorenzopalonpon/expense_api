@@ -9,6 +9,7 @@ class ExpenseUpdateService < BaseService
   def call
     return error(message: "Expense not found", type: :not_found) unless @expense
     return error(message: "User not found", type: :not_found) unless @user
+    return error(message: "Expense is not in a draft state", type: :unprocessable_entity) unless @expense.drafted?
     return error(message: "Expense does not belong to the user", type: :unprocessable_entity) unless @expense.employee == @user
 
     begin
