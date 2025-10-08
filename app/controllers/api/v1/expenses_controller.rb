@@ -35,7 +35,8 @@ class Api::V1::ExpensesController < ApplicationController
   end
 
   def reject
-    # TODO: Implement reject
+    result = ExpenseRejectService.new(@current_user, {id: params[:id]}).call
+    render_service_response(result)
   end
 
   private
