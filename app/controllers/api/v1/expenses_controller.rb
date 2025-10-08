@@ -25,7 +25,8 @@ class Api::V1::ExpensesController < ApplicationController
   end
 
   def submit
-    # TODO: Implement submit
+    result = ExpenseSubmitService.new(@current_user, {id: params[:id]}).call
+    render_service_response(result)
   end
 
   def approve

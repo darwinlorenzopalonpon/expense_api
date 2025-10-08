@@ -1,8 +1,4 @@
 class BaseService
-  def initialize(current_user = nil)
-    @current_user = current_user
-  end
-
   def call
     raise NotImplementedError
   end
