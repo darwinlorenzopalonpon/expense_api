@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useUser } from './contexts/UserContext'
+import Api from './lib/api'
 
 export default function Home() {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const router = useRouter()
     const { login } = useUser()
+    const api = new Api()
 
     useEffect(() => {
         fetchUsers()
@@ -17,11 +19,7 @@ export default function Home() {
     // fetches users from the API
     const fetchUsers = async () => {
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
-            const response = await fetch(`${apiUrl}/api/v1/users`)
-            console.log('response: ', response)
-            const data = await response.json()
-            console.log('data: ', data)
+            const data = await api.fetchUsers()
             setUsers(data)
         } catch (error) {
             console.error('Error fetching users:', error)
