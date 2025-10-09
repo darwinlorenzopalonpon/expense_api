@@ -6,7 +6,7 @@ class ExpenseIndexService < BaseService
   def call
     return error(message: "User not found", type: :not_found) unless @user
 
-    @expenses = fetch_expenses
+    @expenses = fetch_expenses.order(created_at: :desc)
 
     success(message: "Expenses fetched successfully", data: @expenses)
   end
