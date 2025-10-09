@@ -1,6 +1,6 @@
 # Expense Management API
 
-A Ruby on Rails API-only application for managing employee expenses with role-based approval workflow.
+A Ruby on Rails API-only application with a Next.js frontend for managing employee expenses with role-based approval workflow.
 
 ## System Requirements
 
@@ -12,7 +12,7 @@ A Ruby on Rails API-only application for managing employee expenses with role-ba
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/expense_api.git
+git clone https://github.com/darwinlorenzopalonpon/expense_api.git
 cd expense_api
 ```
 
