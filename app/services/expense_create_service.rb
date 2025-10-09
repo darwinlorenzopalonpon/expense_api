@@ -8,9 +8,9 @@ class ExpenseCreateService < BaseService
 
   def call
     return error(message: "User not found", type: :not_found) unless @user
-    return error(message: "User is not an employee", type: :unprocessable_entity) unless @user.employee?
-    return error(message: "Amount is required", type: :unprocessable_entity) unless @amount.present?
-    return error(message: "Description is required", type: :unprocessable_entity) unless @description.present?
+    return error(message: "User is not an employee", type: :forbidden) unless @user.employee?
+    return error(message: "Amount is required", type: :bad_request) unless @amount.present?
+    return error(message: "Description is required", type: :bad_request) unless @description.present?
 
     @expense = @user.expenses.build(amount: @amount, description: @description)
 

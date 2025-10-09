@@ -27,7 +27,7 @@ RSpec.describe ExpenseUpdateService do
       it 'returns an error' do
         result = ExpenseUpdateService.new(user, params).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe ExpenseUpdateService do
 
     context 'when the expense is not in a draft state' do
       let(:user) { create(:user, :employee) }
-      let(:expense) { create(:expense, :submitted) }
+      let(:expense) { create(:expense, :submitted, employee: user) }
       let(:amount) { 123 }
       let(:description) { "Updated description" }
       let(:params) { { id: expense.id, amount: amount, description: description } }
@@ -69,7 +69,35 @@ RSpec.describe ExpenseUpdateService do
       it 'returns an error' do
         result = ExpenseUpdateService.new(user, params).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
+      end
+    end
+
+    context 'when the amount is not present' do
+      let(:user) { create(:user, :employee) }
+      let(:expense) { create(:expense, :drafted, employee: user) }
+      let(:amount) { nil }
+      let(:description) { "Updated description" }
+      let(:params) { { id: expense.id, amount: amount, description: description } }
+
+      it 'returns an error' do
+        result = ExpenseUpdateService.new(user, params).call
+        expect(result[:success]).to eq(false)
+        expect(result[:type]).to eq(:bad_request)
+      end
+    end
+
+    context 'when the description is not present' do
+      let(:user) { create(:user, :employee) }
+      let(:expense) { create(:expense, :drafted, employee: user) }
+      let(:amount) { 123 }
+      let(:description) { nil }
+      let(:params) { { id: expense.id, amount: amount, description: description } }
+
+      it 'returns an error' do
+        result = ExpenseUpdateService.new(user, params).call
+        expect(result[:success]).to eq(false)
+        expect(result[:type]).to eq(:bad_request)
       end
     end
   end

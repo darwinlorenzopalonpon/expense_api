@@ -26,7 +26,7 @@ RSpec.describe ExpenseCreateService do
       it 'returns an error' do
         result = ExpenseCreateService.new(user, params).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
       end
     end
 

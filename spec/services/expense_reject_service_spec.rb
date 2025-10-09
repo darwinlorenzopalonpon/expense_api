@@ -19,7 +19,7 @@ RSpec.describe ExpenseRejectService do
       it 'returns an error' do
         result = ExpenseRejectService.new(employee, { id: expense.id }).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe ExpenseRejectService do
       it 'returns an error' do
         result = ExpenseRejectService.new(reviewer, { id: expense.id }).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
       end
     end
   end

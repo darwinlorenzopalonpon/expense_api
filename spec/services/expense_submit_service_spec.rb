@@ -21,7 +21,7 @@ RSpec.describe ExpenseSubmitService do
       it 'returns an error' do
         result = ExpenseSubmitService.new(user, { id: expense.id }).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe ExpenseSubmitService do
       it 'returns an error' do
         result = ExpenseSubmitService.new(user, { id: expense.id }).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
       end
     end
 

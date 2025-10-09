@@ -6,8 +6,8 @@ class ExpenseRejectService < BaseService
 
   def call
     return error(message: "Expense not found", type: :not_found) unless @expense
-    return error(message: "Expense is not in a submitted state", type: :unprocessable_entity) unless @expense.submitted?
-    return error(message: "User is not a reviewer", type: :unprocessable_entity) unless @user.reviewer?
+    return error(message: "Expense is not in a submitted state", type: :forbidden) unless @expense.submitted?
+    return error(message: "User is not a reviewer", type: :forbidden) unless @user.reviewer?
 
     begin
       @expense.reviewer = @user

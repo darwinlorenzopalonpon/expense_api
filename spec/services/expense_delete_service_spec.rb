@@ -17,7 +17,7 @@ RSpec.describe ExpenseDeleteService do
       it 'returns an error' do
         result = ExpenseDeleteService.new(user, { id: expense.id }).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
       end
     end
 
@@ -26,7 +26,7 @@ RSpec.describe ExpenseDeleteService do
       it 'returns an error' do
         result = ExpenseDeleteService.new(employee, { id: expense.id }).call
         expect(result[:success]).to eq(false)
-        expect(result[:type]).to eq(:unprocessable_entity)
+        expect(result[:type]).to eq(:forbidden)
       end
     end
 
